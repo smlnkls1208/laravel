@@ -9,7 +9,7 @@ class HomeController extends Controller
 
     public function index(): \Illuminate\Contracts\View\View
     {
-        return view('home.index', ['title' => 'Home page']);
+        return view('home.index', ['title2' => 'Home page', 'description' => 'Test desc', 'test' => 'test value']);
     }
 
     public function test()
@@ -20,11 +20,8 @@ class HomeController extends Controller
 
     public function contact()
     {
-        $data = [
-            'name' => 'John',
-            'age' => 20,
-        ];
-        return view('home/contact', ['title' => '<i>Contact page</i>', 'data' => $data]);
+
+        return view('home/contact', ['title' => 'Contact page']);
     }
 
 }
