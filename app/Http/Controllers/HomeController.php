@@ -9,33 +9,22 @@ class HomeController extends Controller
 
     public function index(): \Illuminate\Contracts\View\View
     {
-        if(!View::exists('home.index')){
-            abort(404);
-        }
-        return View::first(['home.index', 'home.contact', 'home.index'],  [
-            'name' => 'John',
-            'age' => 35,
-            'title' => 'Home page']);
-
-
-/*        return View::make('home.index', [
-            'name' => 'John',
-            'age' => 35,
-            'title' => 'Home page']);*/
+        return view('home.index', ['title' => 'Home page']);
     }
 
     public function test()
     {
-        $name = 'Katy';
-        $age = 27;
-        $title = 'Test page';
-        return view('home/test', compact('name', 'age', 'title'));
+        return view('home.test', ['title' => 'Test page']);
+
     }
 
     public function contact()
     {
-        $title = 'Title page';
-        return view('home/contact')->with(['title' => $title]);
+        $data = [
+            'name' => 'John',
+            'age' => 20,
+        ];
+        return view('home/contact', ['title' => '<i>Contact page</i>', 'data' => $data]);
     }
 
 }
