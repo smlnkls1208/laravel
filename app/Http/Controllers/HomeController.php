@@ -15,20 +15,44 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
 
-    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+    public function index()
     {
-//        $category = Category::query()->find(2);
-//        dump($category->toArray());
-//
-//        dump($category->post);
+        /*$category = Category::query()->find(1);
+        dump($category->toArray());
 
-        $post = Post::query()->find(3);
+        $posts = $category->posts;
+        dump($posts->toArray());*/
+
+/*        $post = Post::query()->find(1);
         dump($post->toArray());
+        dump($post->category->toArray());*/
 
-        dump($post->category->title);
+//        $categories = Category::all();
+        /*$categories = Category::with('posts')->get();
+        dump($categories->toArray());
 
-//        $post = Post::query()->where('category_id', '=', 2)->first();
-//        dump($post);
+        foreach ($categories as $category) {
+            echo "{$category->title}<br>";
+            foreach ($category->posts as $post) {
+                echo "{$post->title}<br>";
+            }
+            echo '<hr>';
+        }*/
+
+/*        $categories = Category::query()->withCount('posts')->get();
+        dump($categories);
+
+        foreach ($categories as $category) {
+            echo "{$category->title} ({$category->posts_count})<br>";
+            foreach ($category->posts as $post) {
+                echo "{$post->title}<br>";
+            }
+        }*/
+
+        $category = Category::query()->find(1);
+//        dump($category->posts()->where('id', '<>', 4)->orderBy('id', 'desc')->limit(1)->get()->toArray());
+        dump($category->posts->where('id', '<>', 4));
+
 
 
         return view('home.index');
