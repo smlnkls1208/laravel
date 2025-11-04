@@ -26,7 +26,7 @@
         </div>
     @endforeach--}}
 
-    @foreach($posts as $post)
+{{--    @foreach($posts as $post)
         {{ $post->title }} | {{ $post->isPublished() }}<br>
     @endforeach
     <hr>
@@ -37,7 +37,7 @@
     @foreach($posts3 as $post)
         {{ $post->title }}<br>
     @endforeach
-    <hr>
+    <hr>--}}
 
 @endsection
 

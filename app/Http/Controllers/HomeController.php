@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Country;
 use App\Models\Language;
 use App\Models\Post;
@@ -14,54 +15,23 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
 
-    public function index()
+    public function index(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
     {
-        $posts = Post::query()->get();
-        dump($posts);
+//        $category = Category::query()->find(2);
+//        dump($category->toArray());
+//
+//        dump($category->post);
 
-        $posts2 = DB::table('posts')->get();
-        dump($posts2);
+        $post = Post::query()->find(3);
+        dump($post->toArray());
 
-        $posts3 = DB::select('select * from posts');
-        dump($posts3);
+        dump($post->category->title);
 
-/*        $data = [1, 2, 3, 4, 5];
-        $data = collect($data);
-        dump($data->toArray());*/
-
-/*        $products = collect([
-            ['title'=>'Product 1', 'price'=>10],
-            ['title'=>'Product 2', 'price'=>15],
-            ['title'=>'Product 3', 'price'=>10],
-            ['title'=>'Product 4', 'price'=>20],
-            ['title'=>'Product 5', 'price'=>20],
-        ]);
-        dump($products);
-        dump($products->avg('price'));
-        dump($products->max('price'));
-        dump($products->min('price'));
-        dump($products->sum('price'));
-
-        $filtered = $products->filter(function($value, $key) {
-            return $value['price'] > 10;
-        });
-        dump($filtered);*/
-
-        $countries = Country::query()->limit(10)->get(['Name', 'Population', 'Continent']);
-        dump($countries);
-        $filtered = $countries->filter(function ($value, $key) {
-           return $value['Population'] > 1000000;
-        });
-        dump($filtered->toArray());
-        dump($countries->max('Population'));
-        dump($countries->min('Population'));
-
-        dump($countries->countBy(function (Country $country) {
-            return $country->Continent;
-        }));
+//        $post = Post::query()->where('category_id', '=', 2)->first();
+//        dump($post);
 
 
-        return view('home.index', compact('posts', 'posts2', 'posts3'));
+        return view('home.index');
     }
 
     public function store(Request $request)
