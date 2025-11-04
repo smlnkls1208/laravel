@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Language;
 use App\Models\Post;
+use App\Models\Tag;
 use http\Env\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
@@ -17,41 +18,27 @@ class HomeController extends Controller
 
     public function index()
     {
-        /*$category = Category::query()->find(1);
-        dump($category->toArray());
-
-        $posts = $category->posts;
-        dump($posts->toArray());*/
-
 /*        $post = Post::query()->find(1);
-        dump($post->toArray());
-        dump($post->category->toArray());*/
+        $tags = $post->tags;
+        dump($tags);
 
-//        $categories = Category::all();
-        /*$categories = Category::with('posts')->get();
-        dump($categories->toArray());
-
-        foreach ($categories as $category) {
-            echo "{$category->title}<br>";
-            foreach ($category->posts as $post) {
-                echo "{$post->title}<br>";
-            }
-            echo '<hr>';
+        foreach ($tags as $tag) {
+            echo "{$tag->title} | {$tag->ts->created_at}<br>";
         }*/
 
-/*        $categories = Category::query()->withCount('posts')->get();
-        dump($categories);
+//        $tag = Tag::query()->find(5);
+//        dump($tag->posts);
 
-        foreach ($categories as $category) {
-            echo "{$category->title} ({$category->posts_count})<br>";
-            foreach ($category->posts as $post) {
-                echo "{$post->title}<br>";
+/*        $posts = Post::with('tags')->get();
+        foreach ($posts as $post) {
+            echo "{$post->title}<br>";
+            foreach ($post->tags as $tag) {
+                echo "{$tag->title}<br>";
             }
+            echo "<hr>";
         }*/
 
-        $category = Category::query()->find(1);
-//        dump($category->posts()->where('id', '<>', 4)->orderBy('id', 'desc')->limit(1)->get()->toArray());
-        dump($category->posts->where('id', '<>', 4));
+        dump(Category::query()->find(1)->latestActivePost);
 
 
 
