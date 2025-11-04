@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('countries', function () {
+Route::get('countries', function () {
     return \App\Models\Country::query()
         ->where("Population", '>', 100000000)
         ->orderBy('Population', 'desc')
         ->limit(5)
-        ->get(['Code', 'Name', 'Population']);
-});*/
+        ->get(['Code', 'Name', 'Population', 'Region']);
+});
