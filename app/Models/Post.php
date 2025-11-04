@@ -5,6 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int status
+ */
+
 class Post extends Model
 {
     use HasFactory;
@@ -12,4 +16,10 @@ class Post extends Model
     protected $fillable = ['title', 'content', 'category_id'];
 
 //    protected $guarded = [];
+
+    public function isPublished()
+    {
+        return $this->status ? 'Published' : 'Not Published';
+    }
+
 }
