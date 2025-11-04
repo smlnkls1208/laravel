@@ -42,7 +42,7 @@ class Category extends Model
             'id' => 'max'
         ], function (Builder $query) {
             $query
-                ->where('status', '=', 1);
+                ->where('status', '=', 1)
                 ->where('id', '<>', 3);
 
         });
