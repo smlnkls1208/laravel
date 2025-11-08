@@ -18,11 +18,8 @@ class Post extends Model
 {
     use HasFactory;
 
-    /**
-     * @var HigherOrderCollectionProxy|mixed
-     */
-//    public mixed $category;
-//    protected $fillable = ['title', 'content', 'category_id'];
+
+    protected $fillable = ['title', 'content', 'category_id', 'status', 'slug'];
 
 //    protected $guarded = [];
 
