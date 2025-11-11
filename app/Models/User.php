@@ -31,4 +31,10 @@ class User extends Authenticatable
             'is_blocked' => 'boolean',
         ];
     }
+    public function readingList(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Book::class, 'reading_lists')
+            ->withTimestamps();
+    }
+
 }
