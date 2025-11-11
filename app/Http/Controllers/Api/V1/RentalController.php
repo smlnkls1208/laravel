@@ -33,6 +33,11 @@ class RentalController extends Controller
 
         $book->decrement('available_copies');
 
+        $rental->load('book');
+
+
         return new RentalResource($rental);
     }
+
+
 }

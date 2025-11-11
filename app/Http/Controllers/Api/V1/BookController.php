@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\BookRequest;
 use App\Http\Resources\Api\V1\BookResource;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class BookController extends Controller
 {
-    public function __construct()
+    public function initialize(): void
     {
         $this->authorizeResource(Book::class, 'book');
     }

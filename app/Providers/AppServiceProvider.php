@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Book;
 use App\Policies\BookPolicy;
 
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -18,8 +19,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        $this->registerPolicies();
         Gate::policy(Book::class, BookPolicy::class);
         Gate::policy(User::class, UserPolicy::class);
+        RateLimiter::for('api', function ($request) {
+            return \Illuminate\Cache\RateLimiting\Limit::perMinute(60)->by($request->ip());
+        });
     }
 }

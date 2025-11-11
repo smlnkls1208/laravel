@@ -18,11 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'throttle:api' => \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
         ]);
-        RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->ip());
-        });
     })
-
     ->withExceptions(function (Exceptions $exceptions): void {
         //
     })->create();
