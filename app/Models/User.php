@@ -37,4 +37,11 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+
+    public function rentals(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rental::class);
+    }
+
+
 }

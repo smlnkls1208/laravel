@@ -22,4 +22,11 @@ class Book extends Model
         return $this->belongsToMany(User::class, 'reading_lists')
             ->withTimestamps();
     }
+
+    public function rentals(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rental::class);
+    }
+
+
 }
