@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Book;
+use App\Models\Rental;
 
 
 class User extends Authenticatable
@@ -36,5 +38,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Book::class, 'reading_lists')
             ->withTimestamps();
     }
+
+
+    public function rentals(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Rental::class);
+    }
+
 
 }
