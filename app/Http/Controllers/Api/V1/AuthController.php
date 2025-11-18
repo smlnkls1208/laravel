@@ -5,59 +5,34 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\LoginRequest;
 use App\Http\Requests\Api\V1\RegisterRequest;
-use App\Models\User;
+use App\Actions\Auth\RegisterUserAction;
+use App\Actions\Auth\LoginUserAction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request, RegisterUserAction $action)
     {
-        $user = User::create([
-            'name' => $request->name,
-            'surname' => $request->surname,
-            'email' => $request->email,
-            'password' => $request->password,
-            'role' => 'reader',
-        ]);
-
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $result = $action->execute($request->validated());
 
         return response()->json([
             'message' => 'Регистрация успешна',
-            'access_token' => $token,
+            'access_token' => $result['token'],
             'token_type' => 'Bearer',
-            'user' => $user->only('id', 'name', 'surname', 'email', 'role'),
+            'user' => $result['user']->only('id', 'name', 'surname', 'email', 'role'),
         ], 201);
     }
 
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request, LoginUserAction $action)
     {
-        $user = User::where('email', $request->email)->first();
-
-        if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json([
-                'message' => 'Неверные учётные данные'
-            ], 401);
-        }
-
-        if ($user->is_blocked) {
-            return response()->json([
-                'message' => 'Ваш аккаунт заблокирован'
-            ], 403);
-        }
-
-        $user->tokens()->delete();
-
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $result = $action->execute($request->email, $request->password);
 
         return response()->json([
-            'access_token' => $token,
+            'access_token' => $result['token'],
             'token_type' => 'Bearer',
-            'user' => $user->only('id', 'name', 'surname', 'email', 'role'),
+            'user' => $result['user']->only('id', 'name', 'surname', 'email', 'role'),
         ]);
     }
-
     public function logout(Request $request)
     {
         $request->user()->currentAccessToken()->delete();
